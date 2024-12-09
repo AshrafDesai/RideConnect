@@ -162,3 +162,125 @@ If any of the fields are missing or invalid, the server will respond with a `400
 - `jsonwebtoken`: For generating JWT authentication tokens.
 
 ---
+### Documentation for `/users/login` Endpoint
+
+#### Endpoint
+**`POST /users/login`**
+
+#### Description
+This endpoint is used to authenticate a user by validating their email and password. Upon successful login, a JWT (JSON Web Token) is returned, along with the user's details.
+
+---
+
+### Request
+
+**Headers**
+| Key           | Value                | Required |
+|---------------|----------------------|----------|
+| Content-Type  | `application/json`   | Yes      |
+
+**Body (JSON)**
+| Field     | Type   | Required | Description                            |
+|-----------|--------|----------|----------------------------------------|
+| `email`   | String | Yes      | The email address of the user.         |
+| `password`| String | Yes      | The password of the user.              |
+
+**Example**
+```json
+{
+    "email": "user@example.com",
+    "password": "password123"
+}
+```
+
+---
+
+### Response
+
+**Success Response**
+- **Status Code**: `200 OK`
+- **Body**:
+    ```json
+    {
+        "token": "<JWT_TOKEN>",
+        "user": {
+            "_id": "63d23f1f2c10f02c3f1b4c3d",
+            "fullname": {
+                "firstname": "John",
+                "lastname": "Doe"
+            },
+            "email": "user@example.com",
+            "socketId": null
+        }
+    }
+    ```
+
+**Error Responses**
+
+1. **Invalid Request Body**
+   - **Status Code**: `400 Bad Request`
+   - **Body**:
+     ```json
+     {
+         "errors": [
+             {
+                 "msg": "Invalid Email",
+                 "param": "email",
+                 "location": "body"
+             }
+         ]
+     }
+     ```
+
+2. **User Not Found**
+   - **Status Code**: `404 Not Found`
+   - **Body**:
+     ```json
+     {
+         "message": "Invalid email or password"
+     }
+     ```
+
+3. **Invalid Password**
+   - **Status Code**: `400 Bad Request`
+   - **Body**:
+     ```json
+     {
+         "message": "Invalid Password"
+     }
+     ```
+
+4. **Server Error**
+   - **Status Code**: `500 Internal Server Error`
+   - **Body**:
+     ```json
+     {
+         "message": "Internal Server Error"
+     }
+     ```
+
+---
+
+### Validation Rules
+- **`email`**: Must be a valid email address.
+- **`password`**: Must be at least 6 characters long.
+
+---
+
+### Usage Notes
+- Ensure to use the correct headers and HTTP method (`POST`).
+- Use the returned token for subsequent authenticated requests by including it in the `Authorization` header as `Bearer <JWT_TOKEN>`.
+
+---
+
+### Example cURL Command
+```bash
+curl -X POST http://localhost:3000/users/login \
+-H "Content-Type: application/json" \
+-d '{
+    "email": "user@example.com",
+    "password": "password123"
+}'
+```
+
+This endpoint is now documented alongside the `/users/register` endpoint in the README.md.
