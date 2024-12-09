@@ -318,7 +318,7 @@ Retrieve the profile of the authenticated user.
 
 ---
 
-#### **GET** `/users/logout`
+# **GET** `/users/logout`
 Logs out the user by clearing the token and blacklisting it.
 
 - **URL**: `/users/logout`
