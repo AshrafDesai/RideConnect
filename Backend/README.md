@@ -348,7 +348,7 @@ Logs out the user by clearing the token and blacklisting it.
 - Tokens are blacklisted upon logout to prevent reuse.
 
 
-## Captain Routes
+# Captain Routes
 
 The following routes allow captains to register, log in, access their profile, and log out.
 
