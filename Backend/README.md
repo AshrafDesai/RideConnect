@@ -346,3 +346,169 @@ Logs out the user by clearing the token and blacklisting it.
 ### Notes
 - Ensure the `Authorization` header contains a valid token for accessing the `/users/profile` and `/users/logout` endpoints.
 - Tokens are blacklisted upon logout to prevent reuse.
+
+
+## Captain Routes
+
+The following routes allow captains to register, log in, access their profile, and log out.
+
+### 1. Register a Captain
+
+**URL**: `/captains/register`  
+**Method**: `POST`
+
+#### Request Body (JSON):
+```json
+{
+    "email": "captain@example.com",
+    "fullname": {
+        "firstname": "John",
+        "lastname": "Doe"
+    },
+    "password": "securepassword123",
+    "vehicle": {
+        "color": "Red",
+        "plate": "XYZ1234",
+        "capacity": 4,
+        "vehicleType": "car"
+    }
+}
+```
+
+#### Validation:
+- `email`: Must be a valid email address.
+- `fullname.firstname`: Must be at least 3 characters long.
+- `fullname.lastname`: Optional, but can be added.
+- `password`: Must be at least 6 characters long.
+- `vehicle.color`: Must be at least 3 characters long.
+- `vehicle.plate`: Must be at least 3 characters long.
+- `vehicle.capacity`: Must be an integer with a minimum value of 1.
+- `vehicle.vehicleType`: Must be one of the following values: `car`, `motorcycle`, `auto`.
+
+#### Sample Response (Success):
+```json
+{
+    "token": "your-jwt-token-here",
+    "captain": {
+        "_id": "captainId",
+        "email": "captain@example.com",
+        "fullname": {
+            "firstname": "John",
+            "lastname": "Doe"
+        },
+        "vehicle": {
+            "color": "Red",
+            "plate": "XYZ1234",
+            "capacity": 4,
+            "vehicleType": "car"
+        }
+    }
+}
+```
+
+#### Sample Response (Error):
+```json
+{
+    "errors": [
+        {
+            "msg": "Invalid Email",
+            "param": "email",
+            "location": "body"
+        }
+    ]
+}
+```
+
+### 2. Login a Captain
+
+**URL**: `/captains/login`  
+**Method**: `POST`
+
+#### Request Body (JSON):
+```json
+{
+    "email": "captain@example.com",
+    "password": "securepassword123"
+}
+```
+
+#### Validation:
+- `email`: Must be a valid email address.
+- `password`: Must be at least 6 characters long.
+
+#### Sample Response (Success):
+```json
+{
+    "token": "your-jwt-token-here",
+    "captain": {
+        "_id": "captainId",
+        "email": "captain@example.com",
+        "fullname": {
+            "firstname": "John",
+            "lastname": "Doe"
+        },
+        "vehicle": {
+            "color": "Red",
+            "plate": "XYZ1234",
+            "capacity": 4,
+            "vehicleType": "car"
+        }
+    }
+}
+```
+
+#### Sample Response (Error):
+```json
+{
+    "message": "Invalid email or password"
+}
+```
+
+### 3. Get Captain Profile
+
+**URL**: `/captains/profile`  
+**Method**: `GET`  
+**Authentication**: Requires a valid JWT token in the `Authorization` header or a `token` cookie.
+
+#### Sample Response (Success):
+```json
+{
+    "_id": "captainId",
+    "email": "captain@example.com",
+    "fullname": {
+        "firstname": "John",
+        "lastname": "Doe"
+    },
+    "vehicle": {
+        "color": "Red",
+        "plate": "XYZ1234",
+        "capacity": 4,
+        "vehicleType": "car"
+    }
+}
+```
+
+### 4. Logout a Captain
+
+**URL**: `/captains/logout`  
+**Method**: `GET`  
+**Authentication**: Requires a valid JWT token in the `Authorization` header or a `token` cookie.
+
+#### Sample Response (Success):
+```json
+{
+    "message": "Logged Out Successfully!"
+}
+```
+
+---
+
+### Error Codes:
+
+- **400**: Bad Request (e.g., validation errors)
+- **401**: Unauthorized (e.g., missing or invalid token)
+- **404**: Not Found (e.g., captain not found during login)
+- **500**: Internal Server Error (e.g., unexpected server error)
+
+---
+
