@@ -283,4 +283,66 @@ curl -X POST http://localhost:3000/users/login \
 }'
 ```
 
-This endpoint is now documented alongside the `/users/register` endpoint in the README.md.
+### API Documentation
+
+---
+
+#### **GET** `/users/profile`
+Retrieve the profile of the authenticated user.
+
+- **URL**: `/users/profile`
+- **Method**: `GET`
+- **Headers**:
+  - `Authorization: Bearer <token>` (Required)  
+- **Response**:
+  - **Status Code**: `200 OK`
+    - **Body**:
+      ```json
+      {
+          "_id": "64c3d5f3e53d12345678abc9",
+          "fullname": {
+              "firstname": "John",
+              "lastname": "Doe"
+          },
+          "email": "johndoe@example.com",
+          "socketId": null
+      }
+      ```
+  - **Status Code**: `401 Unauthorized`
+    - **Body**:
+      ```json
+      {
+          "message": "Unauthorized"
+      }
+      ```
+
+---
+
+#### **GET** `/users/logout`
+Logs out the user by clearing the token and blacklisting it.
+
+- **URL**: `/users/logout`
+- **Method**: `GET`
+- **Headers**:
+  - `Authorization: Bearer <token>` (Required)
+- **Response**:
+  - **Status Code**: `200 OK`
+    - **Body**:
+      ```json
+      {
+          "message": "Logged Out Successfully!"
+      }
+      ```
+  - **Status Code**: `401 Unauthorized`
+    - **Body**:
+      ```json
+      {
+          "message": "Unauthorized"
+      }
+      ```
+
+---
+
+### Notes
+- Ensure the `Authorization` header contains a valid token for accessing the `/users/profile` and `/users/logout` endpoints.
+- Tokens are blacklisted upon logout to prevent reuse.
