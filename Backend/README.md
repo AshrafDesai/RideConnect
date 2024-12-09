@@ -287,7 +287,7 @@ curl -X POST http://localhost:3000/users/login \
 
 ---
 
-#### **GET** `/users/profile`
+# **GET** `/users/profile`
 Retrieve the profile of the authenticated user.
 
 - **URL**: `/users/profile`
