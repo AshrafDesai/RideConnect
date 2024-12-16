@@ -66,7 +66,7 @@ const Home = () => {
       />
       <div className="h-screen w-screen">
         <img
-          className="h-screen w-full object-cover"
+          className="h-full w-full object-cover"
           src="https://s.wsj.net/public/resources/images/BN-XR452_201802_M_20180228165525.gif"
           alt="Background"
         />
