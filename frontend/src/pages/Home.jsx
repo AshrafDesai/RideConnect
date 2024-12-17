@@ -81,7 +81,10 @@ const Home = () => {
             <i className="ri-arrow-down-wide-line" aria-hidden="true"></i>
           </h5>
           <h4 className="text-2xl font-semibold">Find a trip</h4>
-          <form onSubmit={submitHandler}>
+          <form onSubmit={(e)=>{
+            submitHandler(e)
+          }}>
+            <div className="line absolute h-16 w-[4px]  top-2/3 -translate-y-1/2 left-10 bg-black rounded-full"></div>
             <input
               onClick={() => setPanelOpen(true)}
               value={pickup}
