@@ -18,7 +18,6 @@ The request body must be a JSON object with the following structure:
 | `fullname.lastname`  | String | The last name of the user. Must be at least 3 characters long. | Yes      |
 | `password`           | String | The user's password. Must be at least 6 characters long. | Yes      |
 
-![image](https://github.com/user-attachments/assets/c88bf502-2244-4caa-943c-b8d6708823b2)
 
 
 **Example Request Body:**
