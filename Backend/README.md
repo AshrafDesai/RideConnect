@@ -1,4 +1,7 @@
 
+![image](https://github.com/user-attachments/assets/85cb6119-6bfb-4ed2-9ba8-35859b7e89e6)
+
+
 # User Registration API
 
 ## Endpoint: `/users/register`
